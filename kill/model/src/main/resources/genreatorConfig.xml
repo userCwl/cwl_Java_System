@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 数据库驱动 -->
+    <classPathEntry location="E:\start\Maven\RepMaven\mysql\mysql-connector-java\5.1.37\mysql-connector-java-5.1.37.jar" />
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <!-- 是否去除自动生成的代码中的注释 true：是 false：否-->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库连接信息 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/db_second_kill?useUnicode=true&amp;characterEncoding=utf-8"
+                        userId="root"
+                        password="000000">
+        </jdbcConnection>
+
+        <!-- 默认 false，把 JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
+             为 true 时解析为 java.math.BigDecimal -->
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--生成Model类存放位置-->
+        <!-- 相对路径.\src\main\java用不了，不知为什么 -->
+        <javaModelGenerator targetPackage="cwl.kill.model.entity" targetProject="E:\start\Code\IdeaProjects\kill\model\src\main\java">
+            <!-- enableSubPackages：是否让 schema 作为包的后缀-->
+            <property name="enableSubPackages" value="false" />
+            <!-- trimStrings：从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="mappers"  targetProject="E:\start\Code\IdeaProjects\kill\model\src\main\resources">
+            <!-- enableSubPackages：是否让 schema 作为包的后缀-->
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!--生成DaoMapper类存放位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cwl.kill.model.mapper"  targetProject="E:\start\Code\IdeaProjects\kill\model\src\main\java">
+            <!-- enableSubPackages：是否让 schema 作为包的后缀-->
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--生成对应表及类名
+            tableName:要生成的表名
+            domainObjectName:生成后的实例名
+            enableCountByExample:Count语句中加入where条件查询，默认为true开启
+            enableUpdateByExample:Update语句中加入where条件查询，默认为true开启
+            enableDeleteByExample:Delete语句中加入where条件查询，默认为true开启
+            enableSelectByExample:Select多条语句中加入where条件查询，默认为true开启
+            selectByExampleQueryId:Select单个对象语句中加入where条件查询，默认为true开启
+        -->
+        <table tableName="item" domainObjectName="Item" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false">
+            <!-- 使用数据库中实际的字段名作为生成的实体类的属性 -->
+            <property name="useActualColumnNames" value="true"/>
+            <!-- 使用自增长键 -->
+            <property name="my.isgen.usekeys" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="item_kill" domainObjectName="ItemKill"></table>
+        <table tableName="item_kill_success" domainObjectName="ItemKillSuccess"></table>
+        <table tableName="random_code" domainObjectName="RandomCode"></table>
+        <table tableName="user" domainObjectName="User"></table>
+
+        <!--
+        <table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer" >
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="ID" sqlStatement="DB2" identity="true" />
+            <columnOverride column="DATE_FIELD" property="startDate" />
+            <ignoreColumn column="FRED" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table>
+        -->
+
+    </context>
+</generatorConfiguration>
